@@ -11,12 +11,12 @@ from routes.events import event_router
 import uvicorn
 from contextlib import asynccontextmanager
 
+
+# lifespan함수: 어플리케이션 시작과 종료 시 실행되는 프로세스를 작성한다.
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    
     # yield 이전 코드 -> 앱 실행 시 작동되는 코드
     conn()
-    
     yield
     # yield 이후 코드 -> 앱 종료 시 작동되는 코드 
 
@@ -30,6 +30,10 @@ app.include_router(event_router, prefix="/event")
 # @app.on_event("startup")
 # def on_startup():
 #     conn()
+
+@app.get("/")
+async def home():
+    return RedirectResponse(url="/event/")
 
 
 # uvicorn 앱 실행

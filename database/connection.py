@@ -15,14 +15,12 @@ def get_session():
     with Session(engine_url) as session:
         yield session
         """
-        yield를 사용한 이유는, get_session() 함수를 with문과 함께 사용하기 위해서이다. with문은 
-        컨텍스트 매니저의 __enter__ 메소드를 호출하여 리소스를 할당하고, __exit__ 메소드를 호출하여 
-        리소스를 해제한다. get_session() 함수에서는 yield 이전의 부분에서 세션을 생성(__enter__에 해당)하고, 
-        yield 이후의 부분에서 세션을 닫음(__exit__에 해당).
-        
-        예시)
-        with get_session() as session:
-            # 세션을 사용하는 코드
-        """
+        $ def func(data, session=Depends(get_session))
+        위와 같이 어떤 함수에 의존성 주입으로 get_session 함수를 주입할 때
+        yield 문으로 session을 반환하면 어떤 함수가 시작될 때 세션을 열고
+        어떤 함수가 끝나면 세션이 닫히게 된다.
 
-    
+        DB 세션 yield 반환과 with문(콘텍스트 매니저), 그리고 Depends(의존성 주입)은
+        하나의 세트로 사용되면 각 세션마다 새로운(독립적인) 세션이 되며
+        세션이 열리고 닫히는것을 안정적으로 관리하는 기술이다. 라고 현재로써는 이정도만 이해하자..
+        """
