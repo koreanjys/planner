@@ -1,10 +1,10 @@
 # models/events.py
 
+from typing import List, Optional
+from beanie import Document
 from pydantic import BaseModel
-from typing import List
 
-class Event(BaseModel):
-    id: int
+class Event(Document):
     title: str
     image: str
     description: str
@@ -14,7 +14,30 @@ class Event(BaseModel):
     model_config = {
         "json_schema_extra": {
             "example": {
-                "id": 1,
+                "title": "FastAPI Book Launch",
+                "image": "https://linktomyimage.com/image.png",
+                "description": "We will be discussing the contents of the FastAPI\
+                      book in this event. Ensure to come with your own copy to win gifts",
+                "tags": ["python", "fastapi", "book", "launch"],
+                "location": "Google Meet"
+            }
+        }
+    }
+
+    class Settings:
+        name = "events"  # 이 모델 형태로 저장될 컬렉션 이름 정의
+
+
+class EventUpdate(BaseModel):
+    title: Optional[str] = None
+    image: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[List[str]] = []
+    location: Optional[str] = None
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
                 "title": "FastAPI Book Launch",
                 "image": "https://linktomyimage.com/image.png",
                 "description": "We will be discussing the contents of the FastAPI\

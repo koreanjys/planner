@@ -1,10 +1,11 @@
 # models/users.py
 
+from beanie import Document, Link
 from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 from models.events import Event
 
-class User(BaseModel):
+class User(Document):
     email: EmailStr  # email 형식에 맞는지 검사
     password: str
     username: str
@@ -19,6 +20,9 @@ class User(BaseModel):
             }
         }
     }
+
+    class Settings:
+        name = "users"
 
 class UserSignIn(BaseModel):
     email: EmailStr
