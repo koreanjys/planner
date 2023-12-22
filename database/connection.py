@@ -1,6 +1,8 @@
-from beanie import init_beanie
+from beanie import init_beanie, PydanticObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
-from typing import Optional
+
+from typing import Optional, Any, List
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
 from models.users import User
@@ -17,3 +19,7 @@ class Settings(BaseSettings):
     model_config ={
         "env_file": ".env"  # DATABASE_URL을 .env 파일에서 불러옴
     }
+
+class Database:  # 데이터베이스 초기화 중에 사용되는 모델은 Event 또는 User Document의 모델이다.
+    def __init__(self, model):
+        self.model = model
