@@ -22,7 +22,7 @@ class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
         "env_file": ".env"  # DATABASE_URL을 .env 파일에서 불러옴
     }
 
-class Database:  # 데이터베이스 초기화 중에 사용되는 모델은 Event 또는 User Document의 모델이다.
+class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD를 구현
     def __init__(self, model):
         self.model = model
 
