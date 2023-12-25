@@ -52,10 +52,10 @@ class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD�
         TODO: 왜 update_query 변수에서 바로 des_body를 안쓰고 컴프리헨션을 쓰는지? 아마 이 beanie 버전에서는 $set이 오류를 일으켰을듯..?
         """
 
-        doc = await self.get(doc_id)
+        doc = await self.get(doc_id)  # doc 변수에 DB데이터를 받음
         if not doc:
             return False
-        await doc.update(update_query)
+        await doc.update(update_query)  # doc 변수 update_query 변수로 업데이트
         return doc
     
     async def delete(self, id: PydanticObjectId) -> bool:  # Delete 처리
