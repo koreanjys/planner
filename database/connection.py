@@ -19,7 +19,7 @@ class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
                           document_models=[User, Event])  # DB의 컬렉션과 상호작용하기 위해 모델 클래스를 넣어줌
         
     model_config ={
-        "env_file": ".env"  # DATABASE_URL을 .env 파일에서 불러오게 설정
+        "env_file": ".env"  # DATABASE_URL을 .env 파일에서 불러오게 설정, pydantic[dotenv] 설치 필요
     }
 
 class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD를 구현
