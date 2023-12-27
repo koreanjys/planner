@@ -10,7 +10,7 @@ from routes.events import event_router
 import uvicorn
 
 @asynccontextmanager
-async def lifespan():
+async def lifespan(app: FastAPI):
     await settings.initialize_database()  # 앱 시작시 db 초기화
     yield
 

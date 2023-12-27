@@ -38,7 +38,7 @@ async def sign_user_in(user:UserSignIn) -> dict:  # 간단한 유저 인증. 권
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User does not exist"
         )
-    if user_exist.password is not user.password:
+    if user_exist.password != user.password:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Wrong credentials passed"

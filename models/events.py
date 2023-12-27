@@ -48,7 +48,7 @@ class EventUpdate(BaseModel):
     title: Optional[str] = None
     image: Optional[str] = None
     description: Optional[str] = None
-    tags: Optional[List[str]] = []
+    tags: Optional[List[str]] = None
     location: Optional[str] = None
 
     model_config = {

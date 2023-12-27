@@ -13,7 +13,7 @@ event_router = APIRouter(
 
 event_database = Database(Event)
 
-events = []
+# events = []  # DB서버 구축하면서 필요없어짐
 
 @event_router.get("/", response_model=List[Event])
 async def retrieve_all_events() -> List[Event]:
@@ -49,6 +49,9 @@ async def create_event(body: Event) -> dict:
     Event 모델에 Settings 클래스에서 Event 모델 형태로 저장될 컬렉션 위치를 입력해놨기 때문에 바로 저장이 된다.
     즉, Event 모델 형태로 만들어진 body(doc)는 무조건 DB의 events 컬렉션에 저장된다.
     """
+    return {
+        "message": "Event created successfully."
+    }
 
 @event_router.put("/{id}", response_model=Event)
 async def update_event(id: PydanticObjectId, body: EventUpdate) -> Event:
