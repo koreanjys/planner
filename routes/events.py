@@ -7,11 +7,11 @@ from database.connection import Database
 from models.events import Event, EventUpdate
 from typing import List
 
-event_database = Database(Event)
-
 event_router = APIRouter(
     tags=["Events"]
 )
+
+event_database = Database(Event)
 
 events = []
 

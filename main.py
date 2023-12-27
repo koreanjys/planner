@@ -1,12 +1,21 @@
 # main.py
 
 from fastapi import FastAPI
+from database.connection import Settings
+from contextlib import asynccontextmanager
+
 from routes.users import user_router
 from routes.events import event_router
 
 import uvicorn
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan():
+    await settings.initialize_database()  # 앱 시작시 db 초기화
+    yield
+
+app = FastAPI(lifespan=lifespan)
+settings = Settings()
 
 # 라우트 등록
 app.include_router(user_router, prefix="/user")

@@ -25,7 +25,8 @@ class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
 class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD를 구현
     """
     Database 클래스에서 데이터베이스와 상호작용이 가능한 이유:
-        Event 모델에서 자동으로 생성된 PydanticObjectId 형태로 만들어진 _id로 MongoDB와 상호작용이 가능해진다.
+        1. Event 모델 형태로 생성된 인스턴스는 DB와 상호작용이 가능하다.(여기서 DB는 당연히 MongoDB)
+        2. Event 모델에서 자동으로 생성된 PydanticObjectId 형태로 만들어진 _id로 DB와 상호작용이 가능해진다.
     """
     def __init__(self, model):
         self.model = model
