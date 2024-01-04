@@ -1,7 +1,9 @@
 # routes/users.py
 
-from fastapi import APIRouter, HTTPException, status
+from auth.hash_password import HashPassword
 from database.connection import Database
+
+from fastapi import APIRouter, HTTPException, status
 
 from models.users import User, UserSignIn
 
@@ -10,6 +12,7 @@ user_router = APIRouter(
 )
 
 user_database = Database(User)
+hash_password = HashPassword()
 
 users = {}
 
@@ -19,12 +22,15 @@ async def sign_new_user(user: User) -> dict:
     """
     User.find_one() 은 User 컬렉션에서 하나의 문서를 찾는다.
     (User.email==user.email)은 User 컬렉션의 email필드가 user.email 과 같은게 있는지 확인하는 구문이다.
+    beanie의 직관성이 돋보이는 구문이다.
     """
     if user_exist:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="User with email provided exists already"
         )
+    hashed_password = hash_password.create_hash(user.password)
+    user.password = hashed_password
     await user_database.save(user)
     return {
         "message": "User successfully registered!"
