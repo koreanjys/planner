@@ -24,9 +24,9 @@ class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
 
 class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD를 구현
     """
-    Database 클래스에서 데이터베이스와 상호작용이 가능한 이유:
-        1. Event 모델 형태로 생성된 인스턴스는 DB와 상호작용이 가능하다.(여기서 DB는 당연히 MongoDB)
-        2. Event 모델에서 자동으로 생성된 PydanticObjectId 형태로 만들어진 _id로 DB와 상호작용이 가능해진다.
+    Database 클래스에서 데이터베이스와 상호작용이 가능한 이유?:
+        1. 클래스 인스턴스를 생성할 때 beanie의 Document 클래스를 상속받은 User or Event 모델을
+          self.model에 저장을 하고, 상호작용할 때 불러온다.
     """
     def __init__(self, model):
         self.model = model
@@ -54,10 +54,18 @@ class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD�
         update_query = {"$set": {field:value for field, value in des_body.items()}}
         """
         {"$set": 딕셔너리 값} : 업데이트 쿼리를 날리기 위해 $set을 키 값으로 사용
-        TODO: 왜 update_query 변수에서 바로 des_body를 안쓰고 컴프리헨션을 쓰는지? 아마 이 beanie 버전에서는 $set이 오류를 일으켰을듯..?
+        TODO: 왜 update_query 변수에서 바로 des_body를 안쓰고 컴프리헨션을 쓰는지?
+              이전 버전에서 에러 발생 or 메모리를 절약? ***아직 알수 없음***
         """
 
-        doc = await self.get(doc_id)  # doc 변수에 원본 DB데이터를 받음, PydanticObjectID로 인해 DB와 상호작용 가능한 변수가 됨.
+        doc = await self.get(doc_id)
+        """
+        doc 변수에 원본 DB데이터를 받음
+        여기서 self.get의 get은 현재 Class의 get 함수다.
+        그래서 위 get 함수에서는 model.get(id)를 사용했지만,
+        여기서는 get(id)만 사용해도 현재 Class의 get 함수를 불러온다.
+        그래서 DB와 상호작용이 가능하다.
+        """
         if not doc:
             return False
         await doc.update(update_query)  # 원본 doc 데이터 변수를 update_query 변수로 업데이트
