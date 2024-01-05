@@ -11,6 +11,7 @@ from models.users import User
 from models.events import Event
 
 class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
+    SECRET_KEY: Optional[str] = None
     DATABASE_URL: Optional[str] = None
 
     async def initialize_database(self):
@@ -19,7 +20,7 @@ class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
                           document_models=[User, Event])  # DB의 컬렉션과 상호작용하기 위해 모델 클래스를 넣어줌
         
     model_config ={
-        "env_file": ".env"  # DATABASE_URL을 .env 파일에서 불러오게 설정, pydantic[dotenv] 설치 필요
+        "env_file": ".env"  # DATABASE_URL, SECRET_KEY를 .env 파일에서 불러오게 설정, pydantic[dotenv] 설치 필요
     }
 
 class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD를 구현
@@ -62,9 +63,9 @@ class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD�
         """
         doc 변수에 원본 DB데이터를 받음
         여기서 self.get의 get은 현재 Class의 get 함수다.
-        그래서 위 get 함수에서는 model.get(id)를 사용했지만,
-        여기서는 get(id)만 사용해도 현재 Class의 get 함수를 불러온다.
-        그래서 DB와 상호작용이 가능하다.
+        그래서 위 get 함수에서는 beanie의 model.get(id)를 사용했지만,
+        여기서는 get(id)만 사용하여 현재 Class의 get 함수를 불러온다.
+        그렇게도 DB와 상호작용이 가능하다.
         """
         if not doc:
             return False
