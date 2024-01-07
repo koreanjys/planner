@@ -24,16 +24,16 @@ class User(Document):
     class Settings:
         name = "users"
 
-class UserSignIn(BaseModel):
-    email: EmailStr
-    password: str
+# class UserSignIn(BaseModel):  # 안전하지 않은 로그인 모델
+#     email: EmailStr
+#     password: str
 
-    model_config = {
-        "json_schema_extra": {
-            "example": {
-                "email": "fastapi@packt.com",
-                "password": "strong!!!",
-            }
-        }
-    }
+#     model_config = {
+#         "json_schema_extra": {
+#             "example": {
+#                 "email": "fastapi@packt.com",
+#                 "password": "strong!!!",
+#             }
+#         }
+#     }
 
