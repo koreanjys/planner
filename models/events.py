@@ -29,7 +29,7 @@ class Event(Document):
     }
 
     class Settings:
-        name = "events"  # 이 모델 형태로 저장될 컬렉션 이름 정의
+        name = "events"  # 저장할 콜렉션 이름
 
 
 class EventUpdate(BaseModel):  

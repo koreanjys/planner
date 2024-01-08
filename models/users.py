@@ -22,7 +22,11 @@ class User(Document):
     }
 
     class Settings:
-        name = "users"
+        name = "users"  # 저장할 콜렉션 이름
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
 
 # class UserSignIn(BaseModel):  # 안전하지 않은 로그인 모델
 #     email: EmailStr
