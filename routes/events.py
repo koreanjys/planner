@@ -47,7 +47,9 @@ async def retrieve_event(id: PydanticObjectId) -> Event:
 async def create_event(body: Event, user: str = Depends(authenticate)) -> dict:
     # Depends(authenticate)로 인해 토큰으로 인증된 유저만 이벤트 CUD가 가능해졌다.
 
-    await event_database.save(body)  # 모델 Settings에서 저장될 컬렉션 위치를 입력해놨기 때문에 바로 저장
+    body.creator = user  # 신규 이벤트를 만들면 해당 이벤트에 생성자의 이메일이 함께 저장된다.
+
+    await event_database.save(body)  # Event 모델의 인스턴스인 body는 Settings에 입력한 "events" 컬렉션에 저장된다.
     """
     create_event 함수에 쿼리가 따로 없는 이유:
     Event 모델에 Settings 클래스에서 Event 모델 형태로 저장될 컬렉션 위치를 입력해놨기 때문에 바로 저장이 된다.

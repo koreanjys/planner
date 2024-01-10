@@ -9,6 +9,7 @@ class Event(Document):
     Document를 인자로 받은 Event 모델은 자동으로 _id를 생성
     이 _id는 PydanticObjectID 형태로, 해당 모델의 컬렉션과 상호작용이 가능해진다.
     """
+    creator: Optional[str] = None  # 이 필드는 해당 이벤트를 소유한 사용자만 처리를 할 수 있게 한다.
     title: str
     image: str
     description: str
