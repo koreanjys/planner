@@ -6,7 +6,7 @@
 
 ### 1.1 auth
 
-![auth](drawio\auth.drawio.png)
+![auth](drawio/auth.drawio.png)
 
 ## beanie
 - beanie==1.13.1  # beanie 1.13.1 버전에서 작성
