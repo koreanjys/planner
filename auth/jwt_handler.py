@@ -1,6 +1,6 @@
 # auth/jwt_handler.py
 
-# 주어진 사용자명을 JWT로 인코딩, 디코딩하는 함수가 포함된다.
+# 유저 정보를 JWT로 인코딩, 디코딩하는 함수가 포함된다.
 
 import time
 from datetime import datetime

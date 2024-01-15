@@ -2,7 +2,11 @@
 
 ## 1. App architecture
 
-![architecture](planner_app.drawio.png)
+![architecture](drawio/planner_app.drawio.png)
+
+### 1.1 auth
+
+![auth](drawio\auth.drawio.png)
 
 ## beanie
 - beanie==1.13.1  # beanie 1.13.1 버전에서 작성

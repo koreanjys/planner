@@ -27,5 +27,5 @@ async def authenticate(token: str = Depends(oauth2_scheme)) -> str:
             detail="Sign in for access"
         )
 
-    decoded_token = verify_access_token(token)  # "user"와 "expires"를 담고있다
-    return decoded_token["user"]
+    decoded_token = verify_access_token(token)  # 토큰을 디코딩한다. "user"와 "expires"를 담고있다
+    return decoded_token["user"]  # "user"만 반환한다.
