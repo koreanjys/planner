@@ -25,9 +25,10 @@ class Settings(BaseSettings):  # 데이터베이스 초기화 세팅
 
 class Database:  # 데이터베이스 클래스를 사용해서 MongoDB의 CRUD를 구현
     """
-    Database 클래스에서 데이터베이스와 상호작용이 가능한 이유?:
-        1. 클래스 인스턴스를 생성할 때 beanie의 Document 클래스를 상속받은 User or Event 모델을
-          self.model에 저장을 하고, 상호작용할 때 불러온다.
+    beanie의 CRUD는 상당히 직관적이다.
+    models에서 정의한 모델 클래스(Document를 상속한)는 연결할 컬렉션 이름이 설정되어있다. 그래서 DB와 상호작용이
+    바로 가능하다.
+    *save 함수는 인자로 받은 document 자체가 모델 클래스의 인스턴스라서 DB와 상호작용이 가능하다.
     """
     def __init__(self, model):
         self.model = model
