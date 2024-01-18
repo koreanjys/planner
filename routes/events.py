@@ -12,7 +12,7 @@ from auth.authenticate import authenticate
 from typing import List
 
 event_router = APIRouter(
-    tags=["Events"]
+    tags=["Events"]  # API문서 카테고리명
 )
 
 event_database = Database(Event)  # CRUD를 위한 Database 클래스의 인스턴스 생성
