@@ -40,3 +40,23 @@ def test_multiply() -> None:
 
 def test_divide() -> None:
     assert divide(25, 100) == 4
+
+
+# 픽스처를 사용한 반복 제거
+import pytest
+from models.events import EventUpdate
+
+# 픽스처 정의
+@pytest.fixture
+def event() -> EventUpdate:
+    return EventUpdate(
+        title="FastAPI Book Launch",
+        image="이미지?",
+        description="주석?",
+        tags=["태그?"],
+        location="위치?"
+    )
+
+
+def test_event_name(event: EventUpdate) -> None:
+    assert event.title == "FastAPI Book Launch"
